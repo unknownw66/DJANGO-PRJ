@@ -1,0 +1,77 @@
+{% extends 'admin_navbar.html' %}
+{% load static %}
+{% block title %} All Students List {% endblock %}
+{% block css %}
+<style>
+  /* Custom styles for better UX */
+  .table-container { max-width: 100%; overflow-x: auto; padding: 20px; border: 1px solid #dee2e6; border-radius: 8px; background-color: #718eab; }
+  .table th, .table td { vertical-align: middle; text-align: center; }
+  .table thead th { background-color: #a1a662; font-weight: bold; }
+  .table-hover tbody tr:hover { background-color: #f1f3f5; }
+  .btn-danger { transition: background-color 0.2s ease; }
+  .btn-danger:hover { background-color: #dc3545; }
+  h1 { border-bottom: 2px solid #0d6efd; padding-bottom: 10px; } /* Stylish underline alternative */
+</style>
+{% endblock %}
+{% block body %}
+<div class="container mt-5 mb-5">
+  <div class="table-container shadow-sm">
+    <h1 class="text-center mb-4">All Issued Books</h1>
+    <div class="table-responsive">
+      <table class="table table-hover table-striped" id="example" aria-label="List of All Issued Books">
+        <thead>
+          <tr class="text-center">
+            <th scope="col"><i class="bi bi-hash me-1"></i>Sr.No</th>
+            <th scope="col"><i class="bi bi-person me-1"></i>Student</th>
+            <th scope="col"><i class="bi bi-person-badge me-1"></i>Student ID</th>
+            <th scope="col"><i class="bi bi-book me-1"></i>Book Name</th>
+            <th scope="col"><i class="bi bi-upc-scan me-1"></i>ISBN</th>
+            <th scope="col"><i class="bi bi-calendar-event me-1"></i>Issued Date</th>
+            <th scope="col"><i class="bi bi-calendar-x me-1"></i>Expiry Date</th>
+            <th scope="col"><i class="bi bi-currency-rupee me-1"></i>Fine</th>
+            <th scope="col"><i class="bi bi-trash me-1"></i>Delete</th>
+          </tr>
+        </thead>
+        <!-- <tbody>
+          {% for i in details %}
+          <tr class="text-center">
+            <td>{{forloop.counter}}.</td>
+            <td>{{i.0}}</td>
+            <td>{{i.1}}</td>
+            <td>{{i.2}}</td>
+            <td>{{i.3}}</td>
+            <td>{{i.4}}</td>
+            <td>{{i.5}}</td>
+            <td>₹ {{i.6}}</td>
+            <td><a href="./delete_issue/{{book.id}}/" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this issued book details?')">Delete</a></td>
+          </tr>
+          {% endfor %}
+        </tbody> -->
+            <tbody>
+    {% for i in details %}
+    <tr class="text-center">
+        <td>{{forloop.counter}}.</td>
+        <td>{{i.0}}</td>         <!-- User -->
+        <td>{{i.1}}</td>         <!-- User ID -->
+        <td>{{i.2}}</td>         <!-- Book name -->
+        <td>{{i.3}}</td>         <!-- ISBN -->
+        <td>{{i.4}}</td>         <!-- Issue date -->
+        <td>{{i.5}}</td>         <!-- Expiry date -->
+        <td>₹ {{i.6}}</td>       <!-- Fine -->
+        <td>
+            <a href="{% url 'delete_issue' i.7 %}" 
+               class="btn btn-danger" 
+               onclick="return confirm('Are you sure you want to delete this issued book details?')">
+               Delete
+            </a>
+        </td>
+    </tr>
+    {% endfor %}
+</tbody>
+
+
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}

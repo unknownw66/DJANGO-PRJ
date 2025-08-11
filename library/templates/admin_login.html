@@ -1,0 +1,182 @@
+{% extends 'basic.html' %}
+{% load static %}
+
+{% block title %}Admin Login - Library Management System{% endblock %}
+
+{% block css %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* Global styles - this will not conflict with your navbar */
+  body {
+    background-color: #2da9cf;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  /* CORRECTED: Wrapper to center the login form without affecting the body layout */
+  .login-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Adjust min-height to account for navbar height, e.g., calc(100vh - 70px) */
+    min-height: 90vh; 
+    padding: 2rem 0;
+  }
+
+  /* Login Card Styling (Unchanged) */
+  .login-card {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    padding: 2.5rem 3rem;
+    max-width: 450px;
+    width: 100%;
+    border: 1px solid #dee2e6;
+  }
+
+  .login-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  .login-header .icon {
+    font-size: 3rem;
+    color: #0d6efd;
+    margin-bottom: 1rem;
+  }
+
+  .login-header h2 {
+    font-weight: 700;
+    color: #343a40;
+  }
+  
+  .login-header p {
+      color: #6c757d;
+  }
+
+  /* Form Control Styling (Unchanged) */
+  .form-control {
+    padding: 12px 15px;
+    border-radius: 8px;
+    border: 1px solid #ced4da;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .form-control:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.15);
+    outline: none;
+  }
+  
+  .form-label {
+      font-weight: 600;
+      color: #495057;
+      margin-bottom: 0.5rem;
+  }
+
+  /* Password toggle icon (Unchanged) */
+  .password-wrapper {
+      position: relative;
+  }
+
+  .password-toggle-icon {
+      position: absolute;
+      top: 50%;
+      right: 15px;
+      transform: translateY(-50%);
+      color: #6c757d;
+      cursor: pointer;
+      transition: color 0.2s ease;
+  }
+
+  .password-toggle-icon:hover {
+      color: #0d6efd;
+  }
+  
+  /* Button Styling (Unchanged) */
+  .btn-login {
+    background-color: #0d6efd;
+    color: white;
+    padding: 12px 20px;
+    font-weight: 600;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  .btn-login:hover {
+    background-color: #0b5ed7;
+    transform: translateY(-2px);
+  }
+
+</style>
+{% endblock %}
+
+
+{% block body %}
+<!-- CORRECTED: Added this wrapper div to handle centering -->
+<div class="login-wrapper">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8 col-lg-6">
+        <div class="login-card">
+          <div class="login-header">
+            <div class="icon"><i class="bi bi-shield-lock-fill"></i></div>
+            <h2>Admin Login</h2>
+            <p>Secure access for library administrators.</p>
+          </div>
+          
+          <div id="error-container"></div>
+
+          <form method="POST" action="/admin_login/">
+            {% csrf_token %}
+            <div class="mb-3">
+              <label for="username" class="form-label"><i class="bi bi-person-fill me-2"></i>Username</label>
+              <input type="text" class="form-control" id="username" name="username" placeholder="Enter your username" required>
+            </div>
+
+            <div class="mb-4">
+              <label for="password" class="form-label"><i class="bi bi-key-fill me-2"></i>Password</label>
+              <div class="password-wrapper">
+                  <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
+                  <i class="bi bi-eye-slash-fill password-toggle-icon" id="password-toggle"></i>
+              </div>
+            </div>
+
+            <div class="d-grid">
+              <button type="submit" class="btn btn-login btn-lg">Login</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+
+{% block js %}
+<script>
+  // Display error message if the alert flag is set from the backend
+  {% if alert %}
+    const errorContainer = document.getElementById('error-container');
+    const errorDiv = document.createElement('div');
+    errorDiv.className = 'alert alert-danger d-flex align-items-center';
+    errorDiv.setAttribute('role', 'alert');
+    errorDiv.innerHTML = '<i class="bi bi-exclamation-triangle-fill me-2"></i><div>Invalid username or password.</div>';
+    errorContainer.appendChild(errorDiv);
+  {% endif %}
+
+  // Password visibility toggle functionality
+  const passwordToggle = document.getElementById('password-toggle');
+  const passwordInput = document.getElementById('password');
+
+  passwordToggle.addEventListener('click', function() {
+    const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+    passwordInput.setAttribute('type', type);
+    
+    this.classList.toggle('bi-eye-slash-fill');
+    this.classList.toggle('bi-eye-fill');
+  });
+</script>
+{% endblock %}

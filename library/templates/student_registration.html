@@ -1,0 +1,129 @@
+{% extends 'basic.html' %}
+{% load static %}
+{% block title %} Library Management System {% endblock %}
+{% block css %}
+<style>
+  /* Custom styles for better UX */
+  .form-container { max-width: 900px; margin: auto; padding: 30px; border: 1px solid #dee2e6; border-radius: 8px; background-color: #259fd7; }
+  .form-label { font-weight: bold; }
+  .btn-outline-primary { transition: background-color 0.2s ease, color 0.2s ease; }
+  .btn-outline-primary:hover { background-color: #0d6efd; color: white; }
+  .input-group-text { background-color: #e9ecef; }
+  h1 { border-bottom: 2px solid #0d6efd; padding-bottom: 10px; } /* Stylish underline alternative */
+</style>
+{% endblock %}
+{% block body %}
+<div class="container mt-5 mb-5">
+  <div class="form-container shadow-sm">
+    <h1 class="text-center mb-4">Student Registration</h1>
+    <form method="POST" enctype="multipart/form-data"> {% csrf_token %}
+      <div class="row g-3">
+        <div class="col-12">
+          <label for="username" class="form-label"><strong>Username</strong></label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-person"></i></span>
+            <input type="text" class="form-control" id="username" name="username" placeholder="Enter Username" required aria-describedby="usernameHelp">
+          </div>
+        </div>
+      </div>
+
+      <div class="row g-3 mt-3">
+        <div class="col-md-6">
+          <label for="first_name" class="form-label"><strong>First Name</strong></label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-person-fill"></i></span>
+            <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Enter First Name" required aria-describedby="firstNameHelp">
+          </div>
+        </div>
+        <div class="col-md-6">
+          <label for="last_name" class="form-label"><strong>Last Name</strong></label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-person-fill"></i></span>
+            <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Enter Last Name" required aria-describedby="lastNameHelp">
+          </div>
+        </div>
+      </div>
+
+      <div class="row g-3 mt-3">
+        <div class="col-md-6">
+          <label for="email" class="form-label"><strong>Email</strong></label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+            <input type="email" class="form-control" id="email" name="email" placeholder="Enter Email" required aria-describedby="emailHelp">
+          </div>
+        </div>
+        <div class="col-md-6">
+          <label for="phone" class="form-label"><strong>Mobile Number</strong></label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-phone"></i></span>
+            <input type="number" class="form-control" id="phone" name="phone" placeholder="Enter Mobile Number" required aria-describedby="phoneHelp">
+          </div>
+        </div>
+      </div>
+
+      <div class="row g-3 mt-3">
+        <div class="col-md-6">
+          <label for="branch" class="form-label"><strong>Branch Name</strong></label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-diagram-3"></i></span>
+            <input type="text" class="form-control" id="branch" name="branch" placeholder="Enter Branch Name" required aria-describedby="branchHelp">
+          </div>
+        </div>
+        <div class="col-md-6">
+          <label for="classroom" class="form-label"><strong>Class Name</strong></label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-mortarboard"></i></span>
+            <input type="text" class="form-control" id="classroom" name="classroom" placeholder="Enter Class Name" required aria-describedby="classroomHelp">
+          </div>
+        </div>
+      </div>
+
+      <div class="row g-3 mt-3">
+        <div class="col-md-6">
+          <label for="roll_no" class="form-label"><strong>Roll Number</strong></label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-123"></i></span>
+            <input type="text" class="form-control" id="roll_no" name="roll_no" placeholder="Enter Roll Number" required aria-describedby="rollNoHelp">
+          </div>
+        </div>
+        <div class="col-md-6">
+          <label for="image" class="form-label"><strong>Student Image</strong></label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-image"></i></span>
+            <input type="file" class="form-control" id="image" name="image" required aria-describedby="imageHelp">
+          </div>
+        </div>
+      </div>
+
+      <div class="row g-3 mt-3">
+        <div class="col-md-6">
+          <label for="password" class="form-label"><strong>Password</strong></label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-lock"></i></span>
+            <input type="password" class="form-control" id="password" name="password" placeholder="Enter Password" required aria-describedby="passwordHelp">
+          </div>
+        </div>
+        <div class="col-md-6">
+          <label for="confirm_password" class="form-label"><strong>Confirm Password</strong></label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
+            <input type="password" class="form-control" id="confirm_password" name="confirm_password" placeholder="Confirm Password" required aria-describedby="confirmPasswordHelp">
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center mt-4">
+        <button type="submit" class="btn btn-outline-primary px-4">Register As Student</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
+{% block js %}
+<script>
+    {% if alert %}
+    alert("Registration Successfull.")
+    document.location = "/student_login"
+    {% endif %}
+</script>
+{% endblock %}

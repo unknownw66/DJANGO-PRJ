@@ -1,0 +1,57 @@
+{% extends 'basic.html' %}
+{% load static %}
+{% block title %} Library Management System {% endblock %}
+{% block css %}
+<style>
+  /* Custom styles for better UX */
+  body{
+    background-color: #64afcd;
+  }
+  .form-container { max-width: 600px; margin: auto; padding: 30px; border: 1px solid #dee2e6; border-radius: 8px; background-color: #87a2ad; }
+  .form-label { font-weight: bold; }
+  .btn-outline-primary { transition: background-color 0.2s ease, color 0.2s ease; }
+  .btn-outline-primary:hover { background-color: #0d6efd; color: white; }
+  .input-group-text { background-color: #e9ecef; }
+  h1 { border-bottom: 2px solid #0d6efd; padding-bottom: 10px; } /* Stylish underline alternative */
+</style>
+{% endblock %}
+{% block body %}
+<div class="container mt-5 mb-5">
+  <div class="form-container shadow-sm">
+    <h1 class="text-center mb-4">Student Login</h1>
+    <form method="POST"> {% csrf_token %}
+      <div class="row g-3">
+        <div class="col-12">
+          <label for="username" class="form-label"><strong>Username</strong></label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-person"></i></span>
+            <input type="text" class="form-control" id="username" name="username" placeholder="Enter Username" required aria-describedby="usernameHelp">
+          </div>
+        </div>
+      </div>
+
+      <div class="row g-3 mt-3">
+        <div class="col-12">
+          <label for="password" class="form-label"><strong>Password</strong></label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-lock"></i></span>
+            <input type="password" class="form-control" id="password" name="password" placeholder="Enter Password" required aria-describedby="passwordHelp">
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center mt-4">
+        <button type="submit" class="btn btn-outline-primary px-4">Login</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
+{% block js %}
+<script>
+    {% if alert %}
+    alert("Invalid Username or Password.")
+    document.location = "/student_login"
+    {% endif %}
+</script>
+{% endblock %}

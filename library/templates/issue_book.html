@@ -1,0 +1,44 @@
+{% extends 'admin_navbar.html' %}
+{% load static %}
+{% block title %} Issue Book {% endblock %}
+{% block css %}
+<style>
+  /* Custom styles for better UX */
+  .form-container { max-width: 800px; margin: auto; padding: 20px; border: 1px solid #dee2e6; border-radius: 8px; background-color: #51c0d2; }
+  .form-label { font-weight: bold; }
+  .btn-outline-primary { transition: background-color 0.2s ease, color 0.2s ease; }
+  .btn-outline-primary:hover { background-color: #0d6efd; color: white; }
+  .input-group-text { background-color: #e9ecef; }
+  .form-group { margin-bottom: 1.5rem; }
+</style>
+{% endblock %}
+{% block body %}
+<div class="container mt-5">
+  <div class="form-container shadow-sm">
+    <h4 class="text-center mb-4">Issue Book</h4>
+    <form method="POST"> {% csrf_token %}
+      {% for i in form %}
+      <div class="form-group">
+        <label class="form-label" for="{{ i.id_for_label }}">{{ i.label }}</label>
+        <div class="input-group mt-2">
+          <!-- Assuming common fields; customize icons based on actual fields (e.g., book/student-related) -->
+          <span class="input-group-text"><i class="bi bi-book{% if i.label == 'Student' %}-half{% endif %} me-1"></i></span>
+          {{ i }}
+        </div>
+      </div>
+      {% endfor %}
+      <div class="text-center mt-4">
+        <button type="submit" class="btn btn-outline-primary px-4">Issue Book</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
+{% block js %}
+<script>
+    {% if alert %}
+    alert("Book Successfully Issued.")
+    document.location = "/issue_book"
+    {% endif %}
+</script>
+{% endblock %}

@@ -1,0 +1,59 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+
+    <!-- Bootstrap Icons for visual enhancements -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+
+    <title>{% block title %} {% endblock %}</title>
+    {% block css %}
+    <style>
+      /* Custom styles for improved UX */
+      .navbar { box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); }
+      .nav-link { transition: color 0.2s ease; }
+      .nav-link:hover { color: #ffffff; opacity: 0.8; } /* Subtle hover for dark theme */
+      body { padding-top: 20px; } /* Spacing below sticky navbar */
+      .navbar-brand img { margin-right: 8px; } /* Logo spacing */
+    </style>
+    {% endblock %}
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+      <div class="container-fluid">
+        <a class="navbar-brand fw-bolder" href="#">
+          <img src="{% static 'logo.png' %}" alt="Osprey Library Management System Logo" width="30" height="30" class="d-inline-block align-text-top">
+          Osprey Library Management System
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+            <li class="nav-item me-3">
+              <a class="nav-link active" aria-current="page" href="/"><i class="bi bi-house-door me-1"></i>Home</a>
+            </li>
+            <li class="nav-item me-3">
+              <a class="nav-link active" href="/admin_login/"><i class="bi bi-shield-lock me-1"></i>Admin Login</a>
+            </li>
+            <li class="nav-item me-3">
+              <a class="nav-link active" href="/student_registration/"><i class="bi bi-person-plus me-1"></i>Register As Student</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="/student_login/"><i class="bi bi-box-arrow-in-right me-1"></i>Student Login</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    {% block body %}
+    {% endblock %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+    {% block js %}
+    {% endblock %}
+  </body>
+</html>

@@ -1,0 +1,112 @@
+{% extends 'basic.html' %}
+{% load static %}
+
+{% block title %} Library Management System {% endblock %}
+
+{% block css %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  /* Global styles for a modern look */
+  body {
+    background-color: #87d3e2; /* Softer background color */
+    font-family: 'Poppins', sans-serif; /* Apply modern font */
+  }
+
+  /* Enhanced Hero Section */
+  .hero-section {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); /* Subtle gradient */
+    border-radius: 12px;
+    padding: 60px 30px;
+    text-align: center;
+    border: 1px solid #dee2e6;
+  }
+  
+  .hero-section .display-5 {
+    font-weight: 700; /* Bolder heading */
+    color: #343a40;
+  }
+
+  /* Improved Card Styling */
+  .card {
+    border: none; /* Remove default border */
+    border-radius: 12px; /* Softer corners */
+    background-color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 100%;
+  }
+
+  .card:hover {
+    transform: translateY(-8px); /* More pronounced lift */
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1); /* Deeper shadow on hover */
+  }
+  
+  .card-body {
+    padding: 2rem;
+  }
+  
+  .card img {
+    max-width: 120px; /* Controlled image size */
+    height: 120px;
+    margin-bottom: 1.5rem;
+  }
+
+  /* Polished Button Styling */
+  .btn-custom {
+    background-color: transparent;
+    border: 2px solid #0d6efd;
+    color: #0d6efd;
+    padding: 12px 24px;
+    font-weight: 600;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+  }
+
+  .btn-custom:hover {
+    background-color: #0d6efd;
+    color: white;
+    transform: scale(1.05); /* Slight zoom effect on hover */
+  }
+  
+  .btn-custom i {
+    vertical-align: middle;
+  }
+
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="container my-5">
+  <div class="hero-section mb-5">
+    <h1 class="display-5 fw-bold mb-3">Welcome to MITM Library Management System</h1>
+    <p class="fs-4 text-muted">Streamline your library experience with easy access for admins and students.</p>
+  </div>
+
+  <div class="row g-5 justify-content-center">
+    <!-- Admin Login Card -->
+    <div class="col-md-6 col-lg-5">
+      <div class="card text-center">
+        <div class="card-body d-flex flex-column justify-content-center align-items-center">
+          <img src="{% static 'admin.png' %}" class="img-fluid" alt="Admin dashboard illustration">
+          <a class="btn btn-custom btn-lg w-100" href="/admin_login/" aria-label="Login as Admin">
+            <i class="bi bi-shield-lock me-2"></i>Admin Login
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Student Login Card -->
+    <div class="col-md-6 col-lg-5">
+      <div class="card text-center">
+        <div class="card-body d-flex flex-column justify-content-center align-items-center">
+          <img src="{% static 'students.png' %}" class="img-fluid" alt="Students accessing library resources illustration">
+          <a class="btn btn-custom btn-lg w-100" href="/student_login/" aria-label="Login as Student">
+            <i class="bi bi-person-badge me-2"></i>Student Login
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

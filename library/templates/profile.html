@@ -1,0 +1,89 @@
+{% extends 'student_navbar.html' %}
+
+{% block title %} Profile {% endblock %}
+
+{% block css %}
+<style>
+  .profile {
+    padding: 3%;
+    margin-top: 3%;
+    margin-bottom: 3%;
+    border-radius: 0.5rem;
+    background: #89deb1;
+  }
+
+  body{
+    background-color: aqua;
+  }
+  .profile-img {
+    text-align: center;
+  }
+  .profile-img .file {
+    position: relative;
+    overflow: hidden;
+    margin-top: -20%;
+    width: 70%;
+    border: none;
+    border-radius: 0;
+    font-size: 15px;
+    background: #71a0d0b8;
+  }
+  /* Added custom styles for better UX */
+  .profile-card { box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); border-radius: 8px; }
+  .profile-img img { border-radius: 50%; object-fit: cover; } /* Circular image for modern look */
+  .profile-row { margin-bottom: 1rem; align-items: center; }
+  .profile-label { font-weight: bold; color: #495057; }
+  .btn-outline-primary { transition: background-color 0.2s ease, color 0.2s ease; }
+  .btn-outline-primary:hover { background-color: #0d6efd; color: white; }
+</style>
+{% endblock %}
+{% block body %}
+
+<div class="container my-5">
+  <div class="profile profile-card p-4">
+    <h4 class="text-center mb-4" aria-label="User Profile">My Profile</h4>
+    <div class="row g-4">
+      <div class="col-md-4 profile-img">
+        <img src="{{user.student.image.url}}" alt="Profile picture of {{user.get_full_name}}" width="310" height="270" class="img-fluid">
+      </div>
+      <div class="col-md-8">
+        <div class="profile-tab" role="region" aria-label="Profile Details">
+          <div class="row profile-row">
+            <div class="col-md-6 profile-label"><i class="bi bi-hash me-2"></i>ID:</div>
+            <div class="col-md-6"><p>{{user.id}}</p></div>
+          </div>
+          <div class="row profile-row">
+            <div class="col-md-6 profile-label"><i class="bi bi-person me-2"></i>Username:</div>
+            <div class="col-md-6"><p>{{user}}</p></div>
+          </div>
+          <div class="row profile-row">
+            <div class="col-md-6 profile-label"><i class="bi bi-person-fill me-2"></i>Full Name:</div>
+            <div class="col-md-6"><p>{{user.get_full_name}}</p></div>
+          </div>
+          <div class="row profile-row">
+            <div class="col-md-6 profile-label"><i class="bi bi-envelope me-2"></i>Email:</div>
+            <div class="col-md-6"><p>{{user.email}}</p></div>
+          </div>
+          <div class="row profile-row">
+            <div class="col-md-6 profile-label"><i class="bi bi-phone me-2"></i>Phone Number:</div>
+            <div class="col-md-6"><p>{{user.student.phone}}</p></div>
+          </div>
+          <div class="row profile-row">
+            <div class="col-md-6 profile-label"><i class="bi bi-diagram-3 me-2"></i>Branch:</div>
+            <div class="col-md-6"><p>{{user.student.branch}}</p></div>
+          </div>
+          <div class="row profile-row">
+            <div class="col-md-6 profile-label"><i class="bi bi-mortarboard me-2"></i>Class:</div>
+            <div class="col-md-6"><p>{{user.student.classroom}}</p></div>
+          </div>
+          <div class="row profile-row">
+            <div class="col-md-6 profile-label"><i class="bi bi-123 me-2"></i>Roll Number:</div>
+            <div class="col-md-6"><p>{{user.student.roll_no}}</p></div>
+          </div>
+          <a href="/edit_profile/" class="btn btn-outline-primary mt-3" style="width: 9rem;" aria-label="Edit Profile"><i class="bi bi-pencil-square me-2"></i>Edit Profile</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

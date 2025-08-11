@@ -1,0 +1,498 @@
+{% extends 'admin_navbar.html' %}
+{% load static %}
+{% block title %}Add New Book - Library Management System{% endblock %}
+
+{% block css %}
+<style>
+    /* 
+     * UI/UX REDESIGN using your specified color palette:
+     * - Light neutrals (#F2F3F4, #DED1C6) for backgrounds
+     * - Accent purple (#A77693) for interactive elements
+     * - Deep blues (#174871, #0F2D4D) for text and headers
+     * - Modern, clean aesthetic with excellent form visibility
+    */
+    :root {
+        /* Your Specified Color Palette */
+        --light-gray: #31a8c6;      /* Main background */
+        --warm-beige: #DED1C6;       /* Card background */
+        --accent-purple: #A77693;     /* Interactive elements */
+        --medium-blue: #174871;       /* Header and primary text */
+        --dark-blue: #0F2D4D;        /* Deep accents and borders */
+        
+        /* Enhanced palette for better UX */
+        --purple-hover: #8e5f7a;     /* Darker purple for hover states */
+        --blue-light: #2563a8;       /* Lighter blue for focus states */
+        --success-green: #16a34a;    /* Success messages */
+        --error-red: #dc2626;        /* Error states */
+        --text-light: #6b7280;       /* Subtle text */
+        
+        /* Design tokens */
+        --border-radius: 12px;
+        --shadow-soft: 0 4px 20px rgba(23, 72, 113, 0.08);
+        --shadow-strong: 0 8px 32px rgba(15, 45, 77, 0.15);
+        --focus-ring: 0 0 0 3px rgba(167, 118, 147, 0.3);
+    }
+
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+    
+    body {
+        font-family: 'Inter', sans-serif;
+        background: linear-gradient(135deg, var(--light-gray) 0%, var(--warm-beige) 100%);
+        /* Cool background pattern using your colors */
+        background-image: 
+            radial-gradient(circle at 25% 25%, rgba(167, 118, 147, 0.1) 0%, transparent 50%),
+            radial-gradient(circle at 75% 75%, rgba(23, 72, 113, 0.05) 0%, transparent 50%);
+        background-attachment: fixed;
+        color: var(--medium-blue);
+        min-height: 100vh;
+        padding: 2rem 1rem;
+        line-height: 1.6;
+    }
+
+    .container {
+        max-width: 900px;
+        margin: 0 auto;
+    }
+
+    /* Main card with your color scheme */
+    .form-card {
+        background: var(--warm-beige);
+        border-radius: var(--border-radius);
+        overflow: hidden;
+        box-shadow: var(--shadow-strong);
+        border: 1px solid rgba(167, 118, 147, 0.2);
+        position: relative;
+    }
+
+    /* Header with distinct color as requested */
+    .form-header {
+        background: linear-gradient(135deg, var(--medium-blue) 0%, var(--dark-blue) 50%, var(--accent-purple) 100%);
+        padding: 3rem 2.5rem;
+        color: white;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .form-header::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+        opacity: 0.3;
+    }
+
+    .form-header h1 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin: 0 0 0.5rem 0;
+        position: relative;
+        z-index: 1;
+    }
+
+    .form-header p {
+        font-size: 1.1rem;
+        opacity: 0.9;
+        margin: 0;
+        position: relative;
+        z-index: 1;
+    }
+
+    .form-content {
+        padding: 3rem 2.5rem;
+        background: var(--warm-beige);
+    }
+
+    /* Enhanced form styling with excellent visibility */
+    .form-group {
+        margin-bottom: 2rem;
+    }
+
+    .form-label {
+        display: block;
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: var(--dark-blue);
+        margin-bottom: 0.75rem;
+        letter-spacing: 0.025em;
+    }
+
+    .input-wrapper {
+        position: relative;
+    }
+
+    /* Highly visible form inputs as requested */
+    .form-input {
+        width: 100%;
+        height: 56px;
+        padding: 0 1.25rem;
+        background: white;
+        border: 2px solid rgba(167, 118, 147, 0.3);
+        border-radius: var(--border-radius);
+        font-size: 1rem;
+        color: var(--dark-blue);
+        font-weight: 500;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 2px 8px rgba(15, 45, 77, 0.05);
+    }
+
+    .form-input:hover {
+        border-color: var(--accent-purple);
+        box-shadow: 0 4px 12px rgba(167, 118, 147, 0.15);
+        transform: translateY(-1px);
+    }
+
+    .form-input:focus {
+        outline: none;
+        border-color: var(--accent-purple);
+        box-shadow: var(--focus-ring), 0 6px 16px rgba(167, 118, 147, 0.2);
+        transform: translateY(-2px);
+    }
+
+    .form-input::placeholder {
+        color: var(--text-light);
+        font-weight: 400;
+    }
+
+    /* Error states with great visibility */
+    .input-wrapper.error .form-input {
+        border-color: var(--error-red);
+        background: #fef2f2;
+    }
+
+    .error-message {
+        display: none;
+        font-size: 0.875rem;
+        color: var(--error-red);
+        margin-top: 0.5rem;
+        font-weight: 500;
+    }
+
+    .input-wrapper.error .error-message {
+        display: block;
+    }
+
+    .error-icon {
+        position: absolute;
+        right: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+        display: none;
+        color: var(--error-red);
+    }
+
+    .input-wrapper.error .error-icon {
+        display: block;
+    }
+
+    /* Success notification */
+    .success-notification {
+        display: none;
+        background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+        border: 2px solid var(--success-green);
+        color: #15803d;
+        padding: 1.25rem;
+        border-radius: var(--border-radius);
+        margin-bottom: 2rem;
+        font-weight: 500;
+        box-shadow: 0 4px 12px rgba(22, 163, 74, 0.15);
+    }
+
+    /* Form grid for responsive layout */
+    .form-grid {
+        display: grid;
+        gap: 2rem;
+    }
+
+    @media (min-width: 768px) {
+        .form-grid {
+            grid-template-columns: 1fr 1fr;
+        }
+    }
+
+    /* Submit button with your color scheme */
+    .button-section {
+        margin-top: 3rem;
+        padding-top: 2rem;
+        border-top: 2px solid rgba(167, 118, 147, 0.2);
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .submit-btn {
+        background: linear-gradient(135deg, var(--accent-purple), var(--purple-hover));
+        color: white;
+        border: none;
+        padding: 1rem 2.5rem;
+        font-size: 1.1rem;
+        font-weight: 600;
+        border-radius: var(--border-radius);
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 4px 16px rgba(167, 118, 147, 0.3);
+        letter-spacing: 0.025em;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .submit-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(167, 118, 147, 0.4);
+        background: linear-gradient(135deg, var(--purple-hover), var(--accent-purple));
+    }
+
+    .submit-btn:focus {
+        outline: none;
+        box-shadow: var(--focus-ring), 0 8px 25px rgba(167, 118, 147, 0.4);
+    }
+
+    .submit-btn:active {
+        transform: translateY(-1px);
+    }
+
+    .submit-btn:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+        transform: none;
+    }
+
+    /* Loading overlay */
+    .loading-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(15, 45, 77, 0.8);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        backdrop-filter: blur(4px);
+    }
+
+    .loading-spinner {
+        width: 64px;
+        height: 64px;
+        border: 4px solid rgba(167, 118, 147, 0.3);
+        border-top: 4px solid var(--accent-purple);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        box-shadow: 0 8px 32px rgba(167, 118, 147, 0.3);
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    /* Responsive enhancements */
+    @media (max-width: 768px) {
+        .form-header {
+            padding: 2rem 1.5rem;
+        }
+        
+        .form-header h1 {
+            font-size: 2rem;
+        }
+        
+        .form-content {
+            padding: 2rem 1.5rem;
+        }
+    }
+
+    /* Subtle animations for better UX */
+    .form-card {
+        animation: slideUp 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    @keyframes slideUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="form-card">
+        <!-- Vibrant header with your specified colors -->
+        <div class="form-header">
+            <h1>📚 Add New Book</h1>
+            <p>Expand your library with another amazing title</p>
+        </div>
+
+        <div class="form-content">
+            <!-- Success notification styled with your theme -->
+            <div id="successMessage" class="success-notification">
+                <strong>✅ Success!</strong> Book added successfully! Redirecting to library...
+            </div>
+
+            <form method="POST" id="bookForm" novalidate>
+                {% csrf_token %}
+                <div class="form-grid">
+                    <!-- Book Name Field -->
+                    <div class="form-group">
+                        <label class="form-label" for="bookName">📖 Book Title</label>
+                        <div class="input-wrapper">
+                            <input 
+                                type="text" 
+                                id="bookName" 
+                                class="form-input" 
+                                name="name" 
+                                placeholder="Enter the book title..." 
+                                required
+                            >
+                            <span class="error-icon">⚠️</span>
+                        </div>
+                        <div class="error-message">Please enter a valid book title</div>
+                    </div>
+
+                    <!-- Author Name Field -->
+                    <div class="form-group">
+                        <label class="form-label" for="authorName">✍️ Author Name</label>
+                        <div class="input-wrapper">
+                            <input 
+                                type="text" 
+                                id="authorName" 
+                                class="form-input" 
+                                name="author" 
+                                placeholder="Enter author's name..." 
+                                required
+                            >
+                            <span class="error-icon">⚠️</span>
+                        </div>
+                        <div class="error-message">Please enter the author's name</div>
+                    </div>
+
+                    <!-- ISBN Field -->
+                    <div class="form-group">
+                        <label class="form-label" for="isbnNumber">🔢 ISBN Number</label>
+                        <div class="input-wrapper">
+                            <input 
+                                type="text" 
+                                id="isbnNumber" 
+                                class="form-input" 
+                                name="isbn" 
+                                placeholder="13-digit ISBN number..." 
+                                required 
+                                pattern="\d{13}"
+                                maxlength="13"
+                            >
+                            <span class="error-icon">⚠️</span>
+                        </div>
+                        <div class="error-message">Please enter a valid 13-digit ISBN</div>
+                    </div>
+
+                    <!-- Category Field -->
+                    <div class="form-group">
+                        <label class="form-label" for="category">🏷️ Category</label>
+                        <div class="input-wrapper">
+                            <input 
+                                type="text" 
+                                id="category" 
+                                class="form-input" 
+                                name="category" 
+                                placeholder="Book category or genre..." 
+                                required
+                            >
+                            <span class="error-icon">⚠️</span>
+                        </div>
+                        <div class="error-message">Please specify a category</div>
+                    </div>
+                </div>
+
+                <div class="button-section">
+                    <button type="submit" class="submit-btn" id="submitBtn">
+                        📝 Add Book to Library
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Enhanced loading overlay -->
+<div class="loading-overlay" id="loadingOverlay">
+    <div class="loading-spinner"></div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const bookForm = document.getElementById('bookForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const loadingOverlay = document.getElementById('loadingOverlay');
+    const inputs = document.querySelectorAll('.form-input[required]');
+
+    // Enhanced validation function
+    const validateInput = (input) => {
+        const wrapper = input.closest('.input-wrapper');
+        const isValid = input.checkValidity() && input.value.trim() !== '';
+        
+        if (isValid) {
+            wrapper.classList.remove('error');
+            return true;
+        } else {
+            wrapper.classList.add('error');
+            return false;
+        }
+    };
+
+    // Real-time validation
+    inputs.forEach(input => {
+        input.addEventListener('blur', () => validateInput(input));
+        input.addEventListener('input', () => {
+            // Clear error state while typing
+            input.closest('.input-wrapper').classList.remove('error');
+        });
+    });
+
+    // Form submission handling
+    bookForm.addEventListener('submit', function(e) {
+        let isFormValid = true;
+        
+        // Validate all inputs
+        inputs.forEach(input => {
+            if (!validateInput(input)) {
+                isFormValid = false;
+            }
+        });
+
+        if (!isFormValid) {
+            e.preventDefault();
+            return;
+        }
+        
+        // Show loading state
+        submitBtn.textContent = '📚 Adding Book...';
+        submitBtn.disabled = true;
+        loadingOverlay.style.display = 'flex';
+    });
+
+    // ISBN formatter - only allow numbers
+    const isbnInput = document.getElementById('isbnNumber');
+    isbnInput.addEventListener('input', function() {
+        this.value = this.value.replace(/[^0-9]/g, '').substring(0, 13);
+    });
+
+    // Success message and redirect
+    {% if alert %}
+    const successDiv = document.getElementById('successMessage');
+    successDiv.style.display = 'block';
+    setTimeout(function() {
+        window.location.href = "/view_books";
+    }, 2500);
+    {% endif %}
+});
+</script>
+{% endblock %}
